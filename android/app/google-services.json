@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "510165900178",
+    "project_id": "hackathonwinnerstelehack",
+    "storage_bucket": "hackathonwinnerstelehack.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510165900178:android:28a73eb1328f755649bf4b",
+        "android_client_info": {
+          "package_name": "com.example.win"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC1RxbKRyPI9wSiF-8Q-X8MFSTg_EwBlvM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
