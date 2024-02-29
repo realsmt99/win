@@ -6,9 +6,11 @@ import 'package:iconsax/iconsax.dart';
 import 'package:lib/lib.dart';
 import 'package:provider/provider.dart';
 import 'package:win/features/auth/services/auth_services.dart';
+import 'package:win/features/home/screen/onbording.dart';
 import 'package:win/features/problemrequest/screens/report_problem_page.dart';
 import 'package:win/models/profile_model.dart';
 import 'package:win/providers/user_provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Overview extends StatefulWidget {
   const Overview({super.key});
@@ -43,7 +45,7 @@ class _OverviewState extends State<Overview> {
                   transitionType: SharedAxisTransitionType.horizontal,
                 );
               },
-              child: [View1(), View2(), View3()].elementAt(value),
+              child: [Onboarding(), View2(), View3()].elementAt(value),
             );
           }),
       bottomNavigationBar: ValueListenableBuilder(
@@ -176,7 +178,14 @@ class _View3State extends State<View3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(child: Text(FirebaseAuth.instance.currentUser!.email!)),
+      body: Center(
+          child: ElevatedButton(
+        onPressed: () {
+          launchUrl(Uri.parse(
+              "https://creator.voiceflow.com/prototype/65e07e664702aca0020f0161"));
+        },
+        child: Text("Chat with our bot"),
+      )),
     );
   }
 }
