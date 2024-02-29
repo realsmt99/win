@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:win/features/auth/screen/login_screen.dart';
+import 'package:win/features/auth/screen/signup_screen.dart';
 import 'package:win/features/home/screen/home.dart';
 
 class AppGalery extends StatefulWidget {
@@ -29,6 +30,16 @@ class _AppGaleryState extends State<AppGalery> {
               Navigator.of(context).push(MaterialPageRoute(
                 builder: (context) {
                   return HomeScreen();
+                },
+              ));
+            },
+          ),
+          ListTile(
+            title: Text("Signup"),
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) {
+                  return SignupPage();
                 },
               ));
             },

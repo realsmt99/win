@@ -40,6 +40,8 @@ dependencies:
   latlng: ^2.0.7
   lib: ^0.0.3
   firebase_core: ^2.25.4
+  cloud_firestore: ^4.15.5
+  firebase_auth: ^4.17.6
 
 dev_dependencies:
   flutter_test:

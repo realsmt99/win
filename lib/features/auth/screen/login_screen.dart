@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:win/const.dart';
+import 'package:win/features/auth/services/auth_services.dart';
+import 'package:win/features/home/screen/home.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -11,6 +14,7 @@ class _LoginScreenState extends State<LoginScreen> {
   late TextEditingController _email;
   late TextEditingController _password;
   bool checked = false;
+  bool isloading = false;
   GlobalKey<FormState> formkey = GlobalKey<FormState>();
   @override
   void initState() {
@@ -19,6 +23,35 @@ class _LoginScreenState extends State<LoginScreen> {
 
     _email = TextEditingController();
     _password = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _email.dispose();
+    _password.dispose();
+  }
+
+  void loginUser() async {
+    setState(() {
+      isloading = true;
+    });
+    String res = await AuthMethods().logIn(
+      email: _email.text.trim(),
+      password: _password.text.trim(),
+    );
+    if (res == "Logged in") {
+      Navigator.of(context).pushReplacement(
+        MaterialPageRoute(builder: (context) => HomeScreen()),
+      );
+      showSnackBar("Logged in", context);
+    } else {
+      showSnackBar(res, context);
+    }
+    setState(() {
+      isloading = false;
+    });
   }
 
   @override
@@ -108,14 +141,17 @@ class _LoginScreenState extends State<LoginScreen> {
                                   MaterialStateProperty.all(Size(200, 20)),
                             ),
                             onPressed: () async {
-                              if (formkey.currentState!.validate() &&
-                                  checked) {}
+                              if (formkey.currentState!.validate() && checked) {
+                                loginUser();
+                              }
                             },
-                            child: const Row(
+                            child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 Text("Login"),
-                                Icon(Icons.login_sharp),
+                                isloading
+                                    ? CircularProgressIndicator()
+                                    : Container(),
                               ],
                             )),
                         SizedBox(
