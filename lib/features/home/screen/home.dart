@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:latlong2/latlong.dart' show LatLng;
+import 'package:win/features/home/screen/overview.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -47,6 +48,10 @@ class _HomeScreenState extends State<HomeScreen> {
                   child: FloatingActionButton(
                     onPressed: () {
                       print('Add Marker');
+                      Navigator.of(context)
+                          .push(MaterialPageRoute(builder: (context) {
+                        return Overview();
+                      }));
                     },
                     child: Icon(Icons.add_location),
                   ),
