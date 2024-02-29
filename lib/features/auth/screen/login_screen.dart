@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:win/const.dart';
 import 'package:win/features/auth/services/auth_services.dart';
 import 'package:win/features/home/screen/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -45,6 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(builder: (context) => HomeScreen()),
       );
+
       showSnackBar("Logged in", context);
     } else {
       showSnackBar(res, context);

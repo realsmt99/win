@@ -83,7 +83,7 @@ class View2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text("view2"),
+        child: Text("hi"),
       ),
     );
   }
