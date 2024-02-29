@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:win/features/problemrequest/services/problen_services.dart';
 import 'package:win/storage_services.dart';
 
 class ReportProblemPage extends StatefulWidget {
@@ -55,6 +56,29 @@ class _ReportProblemPageState extends State<ReportProblemPage> {
             ],
           );
         });
+  }
+
+  void postImage(
+    String uid,
+    String username,
+    String photoUrl,
+  ) async {
+    try {
+      String res = await ProblemServices().uploadRequest(
+          file: _file!,
+          uid: uid,
+          caption: captioncontroller.text,
+          username: username,
+          profilepic: photoUrl);
+
+      if (res == "Success") {
+        ShowSnackBar("Post uploaded", context);
+      } else {
+        ShowSnackBar(res, context);
+      }
+    } catch (e) {
+      ShowSnackBar(e.toString(), context);
+    }
   }
 
   @override
