@@ -1,8 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:win/appgalery.dart';
+import 'package:win/features/auth/screen/login_screen.dart';
 import 'package:win/features/home/screen/overview.dart';
 import 'package:win/firebase_options.dart';
 import 'package:win/models/profile_model.dart';
@@ -57,6 +59,7 @@ class _MyAppState extends State<MyApp> {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
+          textTheme: GoogleFonts.poppinsTextTheme(),
           // This is the theme of your application.
           //
           // TRY THIS: Try running your application with "flutter run". You'll see
@@ -76,7 +79,7 @@ class _MyAppState extends State<MyApp> {
               ColorScheme.fromSeed(seedColor: Colors.blueGrey.shade800),
           useMaterial3: true,
         ),
-        home: isLoggedIn ? Overview() : AppGalery(),
+        home: isLoggedIn ? Overview() : LoginScreen(),
       ),
     );
   }

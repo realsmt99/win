@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:win/const.dart';
 import 'package:win/features/problemrequest/services/problen_services.dart';
 import 'package:win/storage_services.dart';
 
@@ -58,21 +61,18 @@ class _ReportProblemPageState extends State<ReportProblemPage> {
         });
   }
 
-  void postImage(
-    String uid,
-    String username,
-    String photoUrl,
-  ) async {
+  void postImage() async {
     try {
       String res = await ProblemServices().uploadRequest(
-          file: _file!,
-          uid: uid,
-          caption: captioncontroller.text,
-          username: username,
-          profilepic: photoUrl);
+        uid: FirebaseAuth.instance.currentUser!.uid,
+        problemType: _selectedProblem.toString(),
+        file: _file!,
+        caption: captioncontroller.text,
+      );
 
       if (res == "Success") {
-        ShowSnackBar("Post uploaded", context);
+        showSnackBar("Request Uploaded Successfuly", context);
+        Navigator.of(context).pop();
       } else {
         ShowSnackBar(res, context);
       }
@@ -106,7 +106,9 @@ class _ReportProblemPageState extends State<ReportProblemPage> {
               style: FilledButton.styleFrom(
                 fixedSize: Size(100, 30),
               ),
-              onPressed: () {},
+              onPressed: () {
+                postImage();
+              },
               child: Text("Submit your request")),
         ),
         appBar: AppBar(

@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:uuid/uuid.dart';
+import 'package:win/features/auth/services/auth_services.dart';
 import 'package:win/models/profile_model.dart';
 import 'package:win/storage_services.dart';
 
@@ -14,10 +15,9 @@ class ProblemServices {
 
   Future<String> uploadRequest(
       {required Uint8List file,
-      required String uid,
       required String caption,
-      required String username,
-      required String profilepic}) async {
+      required String problemType,
+      required String uid}) async {
     String res = "Some error occurred";
 
     try {
@@ -27,9 +27,9 @@ class ProblemServices {
 
       ProblemRequest problemRequest = ProblemRequest(
         problemid: problemId,
-        client: FirebaseAuth.instance.currentUser as ProfileModel,
+        clientuid: uid,
         problemDescription: caption,
-        problemType: "Problem",
+        problemType: problemType,
         attachements: [url],
         status: "Pending",
         telecomEngineers: [],
@@ -39,7 +39,7 @@ class ProblemServices {
       );
 
       _firestore
-          .collection('posts')
+          .collection('ProblemRequests')
           .doc(problemId)
           .set(problemRequest.toJson());
 

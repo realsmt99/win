@@ -10,7 +10,7 @@ import 'package:win/models/profile_model.dart';
 class ProblemRequest {
   final String problemid;
   final String? fixPhonenumber;
-  final ProfileModel client;
+  final String clientuid;
   final String problemDescription;
   final String problemType;
   final List<String> attachements;
@@ -27,7 +27,7 @@ class ProblemRequest {
     this.langitude,
     this.latitude,
     required this.problemid,
-    required this.client,
+    required this.clientuid,
     required this.problemDescription,
     required this.attachements,
     required this.status,
@@ -42,7 +42,7 @@ class ProblemRequest {
     double? latitude,
     double? langitude,
     String? problemid,
-    ProfileModel? client,
+    String? clientuid,
     String? problemDescription,
     List<String>? attachements,
     String? status,
@@ -58,7 +58,7 @@ class ProblemRequest {
       latitude: langitude ?? this.langitude,
       langitude: langitude ?? this.langitude,
       problemid: problemid ?? this.problemid,
-      client: client ?? this.client,
+      clientuid: clientuid ?? this.clientuid,
       problemDescription: problemDescription ?? this.problemDescription,
       attachements: attachements ?? this.attachements,
       status: status ?? this.status,
@@ -76,7 +76,7 @@ class ProblemRequest {
       'langitude': langitude,
       'latitude': latitude,
       'problemid': problemid,
-      'client': client.toJson(),
+      'client': clientuid,
       'problemDescription': problemDescription,
       'attachements': attachements,
       'status': status,
@@ -90,21 +90,18 @@ class ProblemRequest {
   factory ProblemRequest.fromJson(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
     return ProblemRequest(
-        problemType: snapshot['problemType'] as String,
-        fixPhonenumber: snapshot['fixPhonenumber'] as String,
-        latitude: snapshot['latitude'] as double,
-        langitude: snapshot['langitude'] as double,
+        problemType: snapshot['problemType'],
+        fixPhonenumber: snapshot['fixPhonenumber'],
+        latitude: snapshot['latitude'],
+        langitude: snapshot['langitude'],
         engineersUid: List<String>.from(snapshot['engineersUid']),
-        createdAt:
-            DateTime.fromMillisecondsSinceEpoch(snapshot['createdAt'] as int),
-        updatedAt:
-            DateTime.fromMillisecondsSinceEpoch(snapshot['updatedAt'] as int),
-        telecomEngineers: List<ProfileModel>.from(
-            snapshot['telecomEngineers'].map((x) => ProfileModel.fromMap(x))),
-        status: snapshot['status'] as String,
-        problemid: snapshot['problemid'] as String,
-        client: ProfileModel.fromMap(snapshot['client']),
-        problemDescription: snapshot['problemDescription'] as String,
+        createdAt: DateTime.fromMillisecondsSinceEpoch(snapshot['createdAt']),
+        updatedAt: DateTime.fromMillisecondsSinceEpoch(snapshot['updatedAt']),
+        telecomEngineers: [],
+        status: snapshot['status'],
+        problemid: snapshot['problemid'],
+        clientuid: snapshot['client'],
+        problemDescription: snapshot['problemDescription'],
         attachements: List<String>.from(
           (snap['attachements']),
         ));
@@ -112,7 +109,7 @@ class ProblemRequest {
 
   @override
   String toString() {
-    return 'ProblemRequest(problemid: $problemid, client: $client, problemDescription: $problemDescription, attachements: $attachements, status: $status, telecomEngineers: $telecomEngineers, engineersUid: $engineersUid, createdAt: $createdAt, updatedAt: $updatedAt)';
+    return 'ProblemRequest(problemid: $problemid, clientuid: $clientuid, problemDescription: $problemDescription, attachements: $attachements, status: $status, telecomEngineers: $telecomEngineers, engineersUid: $engineersUid, createdAt: $createdAt, updatedAt: $updatedAt)';
   }
 
   @override
@@ -120,7 +117,7 @@ class ProblemRequest {
     if (identical(this, other)) return true;
 
     return other.problemid == problemid &&
-        other.client == client &&
+        other.clientuid == clientuid &&
         other.problemDescription == problemDescription &&
         listEquals(other.attachements, attachements) &&
         other.status == status &&
@@ -133,7 +130,7 @@ class ProblemRequest {
   @override
   int get hashCode {
     return problemid.hashCode ^
-        client.hashCode ^
+        clientuid.hashCode ^
         problemDescription.hashCode ^
         attachements.hashCode ^
         status.hashCode ^
