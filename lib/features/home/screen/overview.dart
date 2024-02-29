@@ -1,8 +1,14 @@
 import 'package:animations/animations.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:lib/lib.dart';
+import 'package:provider/provider.dart';
+import 'package:win/features/auth/services/auth_services.dart';
+import 'package:win/features/problemrequest/screens/report_problem_page.dart';
+import 'package:win/models/profile_model.dart';
+import 'package:win/providers/user_provider.dart';
 
 class Overview extends StatefulWidget {
   const Overview({super.key});
@@ -117,7 +123,11 @@ class View2 extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodySmall,
                         ),
                         FilledButton(
-                            onPressed: () {}, child: Text("Report Problem"))
+                            onPressed: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => ReportProblemPage()));
+                            },
+                            child: Text("Report Problem"))
                       ],
                     ),
                   ),
@@ -147,15 +157,26 @@ class View2 extends StatelessWidget {
   }
 }
 
-class View3 extends StatelessWidget {
+class View3 extends StatefulWidget {
   const View3({super.key});
+
+  @override
+  State<View3> createState() => _View3State();
+}
+
+class _View3State extends State<View3> {
+  ProfileModel user =
+      ProfileModel(displayName: " ", email: " ", phoneNumber: " ", uid: " ");
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text("view3"),
-      ),
+      body: Center(child: Text(FirebaseAuth.instance.currentUser!.email!)),
     );
   }
 }

@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:win/models/profile_model.dart';
+import 'package:win/providers/user_provider.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -31,6 +33,7 @@ class AuthMethods {
             email: email, password: password);
         res = "Logged in";
         final SharedPreferences prefs = await SharedPreferences.getInstance();
+
         prefs.setString('email', email);
       } else {
         res = "Please enter email and password";
