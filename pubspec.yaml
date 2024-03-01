@@ -51,8 +51,11 @@ dependencies:
   image_picker: ^1.0.7
   provider: ^6.1.2
   uuid: ^4.3.3
+
   http: ^1.2.0
   webview_flutter: ^4.7.0
+  google_fonts: ^6.1.0
+
 
 dev_dependencies:
   flutter_test:
