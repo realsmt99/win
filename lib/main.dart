@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:win/appgalery.dart';
 import 'package:win/features/auth/screen/login_screen.dart';
+import 'package:win/features/home/screen/onbording.dart';
 import 'package:win/features/home/screen/overview.dart';
 import 'package:win/firebase_options.dart';
 import 'package:win/models/profile_model.dart';
@@ -79,7 +80,7 @@ class _MyAppState extends State<MyApp> {
               ColorScheme.fromSeed(seedColor: Colors.blueGrey.shade800),
           useMaterial3: true,
         ),
-        home: isLoggedIn ? Overview() : LoginScreen(),
+        home: isLoggedIn ? Overview() : Onboarding(),
       ),
     );
   }
